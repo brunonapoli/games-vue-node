@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script type="importmap">
+        {
+          "imports": {
+            "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+          }
+        }
+      </script>
+      
+      <div id="app">
+        <div class="contador">
+            <h1>CONTADOR: {{punto}}</h1>
+        </div>
+        <div class="button-games">
+            <h2>Su elección: <p>{{eleccion[0]}}</p></h2>
+            <button @click="eleccion[0] = game[0]; randomChoice(); puntaje();">{{game[0]}}</button>
+            <button @click="eleccion[0] = game[1]; randomChoice(); puntaje();">{{game[1]}}</button>
+            <button @click="eleccion[0] = game[2]; randomChoice(); puntaje();">{{game[2]}}</button>
+        </div>
+
+        <div class="button-ia">
+            <h2>Elección de la máquina: <p>{{eleccion[1]}}</p></h2>
+        </div>
+      </div>
+      
+      <script type="module">
+        import { createApp } from 'vue'
+      
+        createApp({
+          data() {
+            return {
+              game: ['tijera', 'papel', 'roca'],
+              eleccion: ['', ''],
+              punto: 0
+            }
+          },
+          methods: {
+              randomChoice() {
+                  this.eleccion[1] = this.game[Math.floor(Math.random()*this.game.length)]
+              },
+              puntaje() {
+                  if (this.eleccion[0] === this.game[0] && this.eleccion[1] === this.game[1]) {
+                      this.punto ++
+                  }
+              }
+          }
+        }).mount('#app')
+      </script>
+
+</body>
+</html>
