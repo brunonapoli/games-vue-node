@@ -17,8 +17,9 @@
       </script>
       
       <div id="app">
-        <div class="contador">
-            <h1>CONTADOR: {{punto}}</h1>
+        <!-- <div class="contador">
+            <h1 v-if="punto < 3">CONTADOR: {{punto}}</h1>
+            <h1 v-else>FELICITACIONES, HAS GANADO</h1>
         </div>
         <div class="button-games">
             <h2>Su elección: <p>{{eleccion[0]}}</p></h2>
@@ -32,59 +33,62 @@
         </div>
         <div>
           <h3>{{comentario}}</h3>
-        </div>
+        </div> -->
       </div>
       
       <script type="module">
         import { createApp } from 'vue'
-      
-        createApp({
-          data() {
-            return {
-              game: ['tijera', 'papel', 'piedra'],
-              eleccion: ['', ''],
-              punto: 0,
-              comentario: ''
-            }
-          },
-          methods: {
-              randomChoice(id) {
-                setTimeout(() => {
-                  this.eleccion[0] = this.game[id]
-                  this.eleccion[1] = this.game[Math.floor(Math.random()*this.game.length)]
-                }, 500);
-                setTimeout(() => {
-                  this.eleccion[0] = ''
-                  this.eleccion[1] = ''
-                }, 2000);
-              },
-              puntaje() {
-                setTimeout(() => {
-                  if (this.eleccion[0] === 'tijera' && this.eleccion[1] === 'papel') {
-                    this.punto ++
-                    this.comentario = 'Has ganado un punto'
-                    setTimeout(() => {
-                      this.comentario = ''
-                    }, 1000);
-                  }
-                  if (this.eleccion[0] === 'piedra' && this.eleccion[1] === 'tijera') {
-                    this.punto ++
-                    this.comentario = 'Has ganado un punto'
-                    setTimeout(() => {
-                      this.comentario = ''
-                    }, 1000);
-                  }
-                  if (this.eleccion[0] === 'papel' && this.eleccion[1] === 'piedra') {
-                    this.punto ++
-                    this.comentario = 'Has ganado un punto'
-                    setTimeout(() => {
-                      this.comentario = ''
-                    }, 1000);
-                  }
-                }, 500);  
-              }
-          }
-        }).mount('#app')
+        import MyComponent from './main.js'
+
+        createApp(MyComponent).mount('#app')
+
+        // createApp({
+        //   data() {
+        //     return {
+        //       game: ['tijera', 'papel', 'piedra'],
+        //       eleccion: ['', ''],
+        //       punto: 0,
+        //       comentario: ''
+        //     }
+        //   },
+        //   methods: {
+        //       randomChoice(id) {
+        //         setTimeout(() => {
+        //           this.eleccion[0] = this.game[id]
+        //           this.eleccion[1] = this.game[Math.floor(Math.random()*this.game.length)]
+        //         }, 500);
+        //         setTimeout(() => {
+        //           this.eleccion[0] = ''
+        //           this.eleccion[1] = ''
+        //         }, 2000);
+        //       },
+        //       puntaje() {
+        //         setTimeout(() => {
+        //           if (this.eleccion[0] === 'tijera' && this.eleccion[1] === 'papel') {
+        //             this.punto ++
+        //             this.comentario = 'Has ganado un punto'
+        //             setTimeout(() => {
+        //               this.comentario = ''
+        //             }, 1000);
+        //           }
+        //           if (this.eleccion[0] === 'piedra' && this.eleccion[1] === 'tijera') {
+        //             this.punto ++
+        //             this.comentario = 'Has ganado un punto'
+        //             setTimeout(() => {
+        //               this.comentario = ''
+        //             }, 1000);
+        //           }
+        //           if (this.eleccion[0] === 'papel' && this.eleccion[1] === 'piedra') {
+        //             this.punto ++
+        //             this.comentario = 'Has ganado un punto'
+        //             setTimeout(() => {
+        //               this.comentario = ''
+        //             }, 1000);
+        //           }
+        //         }, 500);  
+        //       }
+        //   }
+        // }).mount('#app')
       </script>
 
 </body>
