@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Famoso juego de piedra, papel o tijera hecho con Vue Js, Express & MongoDB.",
   "main": "main.js",
+  "type": "module",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "nodermon server/index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
