@@ -17,17 +17,18 @@
     <div>
       <h3>{{comentario}}</h3>
     </div>
+    <Login />
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
+import Login from './components/Login.vue'
 
 export default {
   name: 'App',
-  // components: {
-  //   HelloWorld
-  // }
+  components: {
+    Login
+  },
   data() {
     return {
       game: ['tijera', 'papel', 'piedra'],

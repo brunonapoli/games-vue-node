@@ -1,0 +1,19 @@
+// module.exports = {
+//   presets: [
+//     '@vue/cli-plugin-babel/preset'
+//   ]
+// }
+
+//Tuve que cambiar toda la configuración por estar usando EMS6 junto con Babel
+{
+  "presets": [
+    [
+      "@vue/cli-plugin-babel/preset",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
+  ]
+}
