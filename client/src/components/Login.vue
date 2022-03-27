@@ -22,10 +22,11 @@ export default {
   methods: {
     ingresar() {
       let nuevoUsuario = {
-        usuario = this.usuario, 
-        mail = this.mail, 
-        contraseña = this.contraseña
+        usuario: this.usuario, 
+        mail: this.mail, 
+        contraseña: this.contraseña
       };
+      axios.post('http://localhost:3030/login', nuevoUsuario)
       console.log(nuevoUsuario)
     }
   }
