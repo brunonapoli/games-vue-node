@@ -1,57 +1,32 @@
 <template>
-  <div>
-    USUARIO<input v-model="usuario" type="text"> <br>
-    MAIL<input v-model="mail" type="text"> <br>
-    CONTRASEÑA<input v-model="contraseña" type="password"> <br>
-    <button @click="ingresar">Enviar</button>
-  </div>
+    <div>
+        EMAIL <input v-model="email" type="text"> <br>
+        CONTRASEÑA <input v-model="contraseña" type="text"> <br>
+        <button @click="ingresar">INGRESAR</button>
+    </div>
 </template>
 
 <script>
-
 import axios from 'axios';
 export default {
-  name: 'Login',
-  data() {
-    return {
-      usuario: '',
-      mail: '',
-      contraseña: ''
+    name: 'Login',
+    data() {
+        return {
+            email: '',
+            contraseña: ''
+        }
+    },
+    methods: {
+        ingresar() {
+            let usuario = {
+                email = this.email,
+                contraseña = this.contraseña
+            }
+            axios.post('http://localhost:3030/login', usuario)
+            .then(res => {
+                console.log(res)
+            })
+        }
     }
-  },
-  methods: {
-    ingresar() {
-      let nuevoUsuario = {
-        usuario: this.usuario, 
-        mail: this.mail, 
-        contraseña: this.contraseña
-      };
-      axios.post('http://localhost:3030/login', nuevoUsuario)
-      .then(res => {
-        console.log(res)
-      }, error => {
-        console.log(error.response)
-      }
-      )
-    }
-  }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

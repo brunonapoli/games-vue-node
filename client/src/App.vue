@@ -17,17 +17,17 @@
     <div>
       <h3>{{comentario}}</h3>
     </div>
-    <Login />
+    <Signup />
   </div>
 </template>
 
 <script>
-import Login from './components/Login.vue'
+import Signup from './components/Signup.vue'
 
 export default {
   name: 'App',
   components: {
-    Login
+    Signup
   },
   data() {
     return {

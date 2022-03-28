@@ -3,7 +3,7 @@ import User from '../../models/User.js';
 
 const router = Router();
 
-router.get('/login', (req, res) => {
+router.get('/signup', (req, res) => {
     try {
         res.send('Probando')
     } catch (error) {
@@ -11,7 +11,7 @@ router.get('/login', (req, res) => {
     }
 });
 
-router.post('/login', (req, res) =>{
+router.post('/signup', (req, res) => {
     const nuevoUsuario = new User({
         usuario: req.body.usuario,
         mail: req.body.mail,
@@ -33,5 +33,9 @@ router.post('/login', (req, res) =>{
     })
     console.log(nuevoUsuario)
 });
+
+router.post('/login', (req, res) => {
+    
+})
 
 export default router;
