@@ -27,7 +27,12 @@ export default {
         contraseña: this.contraseña
       };
       axios.post('http://localhost:3030/login', nuevoUsuario)
-      console.log(nuevoUsuario)
+      .then(res => {
+        console.log(res)
+      }, error => {
+        console.log(error.response)
+      }
+      )
     }
   }
 }
