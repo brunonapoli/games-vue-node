@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Login from '../src/components/Login.vue';
-import Signup from '../src/components/Signup.vue';
-import Llegada from '../src/components/Llegada.vue';
+import Login from '../components/Login';
+import Signup from '../components/Signup';
+import Llegada from '../components/Llegada';
 
 Vue.use(VueRouter);
 
@@ -17,4 +17,4 @@ const router = new VueRouter({
     routes
   });
   
-  export default router;
+export default router;

@@ -19,8 +19,8 @@ export default {
     methods: {
         ingresar() {
             let usuario = {
-                email = this.email,
-                contraseña = this.contraseña
+                email: this.email,
+                contraseña: this.contraseña
             }
             axios.post('http://localhost:3030/login', usuario)
             .then(res => {

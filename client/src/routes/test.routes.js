@@ -35,7 +35,7 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    
+    console.log(req.body)
 })
 
 export default router;
