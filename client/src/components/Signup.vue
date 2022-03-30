@@ -3,7 +3,8 @@
     USUARIO<input v-model="usuario" type="text"> <br>
     MAIL<input v-model="mail" type="text"> <br>
     CONTRASEÑA<input v-model="contraseña" type="password"> <br>
-    <button @click="ingresar">Enviar</button>
+    <button @click="ingresar">Enviar</button> <br>
+    {{ error }}
   </div>
 </template>
 
@@ -16,7 +17,8 @@ export default {
     return {
       usuario: '',
       mail: '',
-      contraseña: ''
+      contraseña: '',
+      error:''
     }
   },
   methods: {
@@ -29,8 +31,11 @@ export default {
       axios.post('http://localhost:3030/signup', nuevoUsuario)
       .then(res => {
         console.log(res)
+        this.error = '';
+        this.$router.push('/');
       }, error => {
         console.log(error.response)
+        this.error = error.response.data.error
       }
       )
     }

@@ -35,7 +35,31 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    console.log(req.body)
+    User.findOne({ mail: req.body.mail }, (error, user) => {
+        if (error) {
+            console.log('No hemos encontrado el mail')
+            return res.status(500).json({
+                titulo: 'Error en el servidor',
+                error: error
+            })
+        }
+        if (!user) {
+            console.log('Usuario no encontrado')
+            return res.status(401).json({
+                titulo: 'Usuario no encontrado',
+                error: 'Datos erróneos'
+            })
+        }
+        //Contraseña incorrecta
+        if (req.body.contraseña != user.contraseña) {
+            return res.status(401).json({
+                titulo: 'Contraseña incorrecta',
+                error: 'Datos erróneos'
+            })
+        }
+        //Si los datos ingresados están correctos
+        
+    })
 })
 
 export default router;
