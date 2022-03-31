@@ -15,12 +15,15 @@
         <h2>Elección de la máquina: <p> {{eleccion[1]}} </p></h2>
     </div>
     <div>
-      <h3>{{comentario}}</h3>
+      <h3>{{comentario}}</h3> <br>
+      <button @click="logout">CERRAR SESIÓN</button>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Game',
   data() {
@@ -69,6 +72,15 @@ export default {
           }, 1000);
         }
       }, 500);  
+    },
+    logout() {
+      localStorage.clear();
+      this.$router.push('/')
+    }
+  },
+  created() {
+    if (localStorage.getItem('token') === null) {
+      this.$router.push('/')
     }
   }
 }

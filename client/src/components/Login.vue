@@ -26,8 +26,10 @@ export default {
             }
             axios.post('http://localhost:3030/login', usuario)
             .then(res => {
-                console.log(res)
-                this.$router.push('/game')
+                if (res.status === 200) {
+                    localStorage.setItem('token', res.data.token)
+                    this.$router.push('/game')
+                }
             }, err => {
                 console.log(err.response)
                 this.error = err.response.data.titulo
