@@ -3,11 +3,8 @@ const { Schema } = moongose;
 
 const userSchema = new Schema({
     usuario: String,
-    mail: String,
-    contraseña: {
-        unique: true,
-        type: String
-    }
+    mail: { unique: true, type: String},
+    contraseña: String
 });
 
 const User = moongose.model('User', userSchema);

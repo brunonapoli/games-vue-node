@@ -21,7 +21,7 @@ export default {
     methods: {
         ingresar() {
             let usuario = {
-                mail: this.mail, //PUEDO INGRESAR MISMOS USUARIOS, HAY UN ERROR
+                mail: this.mail,
                 contraseña: this.contraseña
             }
             axios.post('http://localhost:3030/login', usuario)
@@ -29,7 +29,7 @@ export default {
                 console.log(res)
                 this.$router.push('/game')
             }, err => {
-                console.log(err)
+                console.log(err.response)
                 this.error = err.response.data.titulo
             })
         }

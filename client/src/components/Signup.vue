@@ -28,16 +28,16 @@ export default {
         mail: this.mail, 
         contraseña: this.contraseña
       };
+      console.log(nuevoUsuario)
       axios.post('http://localhost:3030/signup', nuevoUsuario)
-      .then(res => {
-        console.log(res)
-        this.error = '';
-        this.$router.push('/');
-      }, error => {
-        console.log(error.response)
-        this.error = error.response.data.error
-      }
-      )
+        .then(res => {
+          console.log(res)
+          this.$router.push('/')
+        }, error => {
+          console.log(error.response)
+          this.error = error.response.data.titulo
+        }
+        )
     }
   }
 }

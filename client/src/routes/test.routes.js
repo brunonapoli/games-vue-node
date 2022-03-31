@@ -24,12 +24,11 @@ router.post('/signup', (req, res) => {
                 titulo: 'Error',
                 error: 'Mail en uso'
             });
-        } else {
-            console.log('Registro exitoso');
-            return res.status(200).json({
-                titulo: 'Registro exitoso'
-            });
         }
+        console.log('Registro exitoso');
+        return res.status(200).json({
+            titulo: 'Registro exitoso'
+        });
     })
     console.log(nuevoUsuario)
 });
