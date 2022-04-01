@@ -16,6 +16,7 @@
     </div>
     <div>
       <h3>{{comentario}}</h3> <br>
+      <h1>Usuario {{ nombre }}, mail {{ mail }}</h1>
       <button @click="logout">CERRAR SESIÓN</button>
     </div>
   </div>
@@ -28,6 +29,8 @@ export default {
   name: 'Game',
   data() {
     return {
+      nombre: '',
+      mail: '',
       game: ['tijera', 'papel', 'piedra'],
       eleccion: ['', ''],
       punto: 0,
@@ -77,6 +80,16 @@ export default {
       localStorage.clear();
       this.$router.push('/')
     }
+  },
+  mounted() {
+    axios.get('http://localhost:3030/usuario', { headers: { token: localStorage.getItem('token') } })
+    .then(res => {
+      this.nombre = res.data.user.nombre
+      this.mail = res.data.user.mail
+    })
+    .catch(e => {
+      console.log(e);
+    })
   },
   created() {
     if (localStorage.getItem('token') === null) {

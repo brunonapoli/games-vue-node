@@ -60,10 +60,33 @@ router.post('/login', (req, res) => {
             })
         }
         //Si los datos ingresados están correctos
-        let token = jwt.sign({ idUsuario: user._id }, 'secreto');
+        let token = jwt.sign({ idUsuario: user._id }, 'tokenSecreto');
         return res.status(200).json({
             titulo: 'Login exitoso',
             token: token
+        })
+    })
+});
+
+router.get('/usuario', (req, res) => {
+    let token = req.headers.token
+    jwt.verify(token, 'tokenSecreto', (error, decoded) => {
+        if (error) {
+            return res.status(401).json({
+                titulo: 'No autorizado'
+            })
+        }
+        //Si el token está verificado
+        User.findOne({ _id: decoded.idUsuario }, (error, user) => {
+            if (error) return console.log(error)
+            return res.status(202).json({
+                titulo: 'Datos usuario almacenados',
+                user: {
+                    id: user._id,
+                    nombre: user.nombre,
+                    mail: user.mail
+                }
+            })
         })
     })
 })
