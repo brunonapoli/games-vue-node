@@ -1,0 +1,30 @@
+import { Router } from 'express';
+import User from '../../models/User.js';
+import jwt from 'jsonwebtoken';
+
+const router = Router();
+
+router.get('/usuario', (req, res) => {
+    let token = req.headers.token
+    jwt.verify(token, 'tokenSecreto', (error, decoded) => {
+        if (error) {
+            return res.status(401).json({
+                titulo: 'No autorizado'
+            })
+        }
+        //Si el token está verificado
+        User.findOne({ _id: decoded.idUsuario }, (error, user) => {
+            if (error) return console.log(error)
+            return res.status(202).json({
+                titulo: 'Datos usuario almacenados',
+                user: {
+                    id: user._id,
+                    nombre: user.nombre,
+                    mail: user.mail
+                }
+            })
+        })
+    })
+});
+
+export default router;

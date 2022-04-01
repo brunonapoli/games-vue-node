@@ -3,7 +3,8 @@
     USUARIO<input v-model="usuario" type="text"> <br>
     MAIL<input v-model="mail" type="text"> <br>
     CONTRASEÑA<input v-model="contraseña" type="password"> <br>
-    <button @click="ingresar">Enviar</button> <br>
+    <button @click="registrar">Registrarse</button> <br>
+    <button @click="ingresar">Iniciar Sesión</button>
     {{ error }}
   </div>
 </template>
@@ -22,7 +23,7 @@ export default {
     }
   },
   methods: {
-    ingresar() {
+    registrar() {
       let nuevoUsuario = {
         usuario: this.usuario, 
         mail: this.mail, 
@@ -36,8 +37,14 @@ export default {
         }, error => {
           console.log(error.response)
           this.error = error.response.data.titulo
+          setTimeout(() => {
+            this.error = '';
+          }, 2000);
         }
-        )
+      )
+    },
+    ingresar() {
+      this.$router.push('/');
     }
   }
 }

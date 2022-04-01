@@ -2,8 +2,9 @@
     <div>
         EMAIL <input v-model="mail" type="text"> <br>
         CONTRASEÑA <input v-model="contraseña" type="text"> <br>
-        <button @click="ingresar">INGRESAR</button>
-        {{ error }}
+        <button @click="ingresar">INGRESAR</button> <br>
+        <h2>{{ error }}</h2> <br>
+        <button @click="crearUsuario">CREAR USUARIO</button>
     </div>
 </template>
 
@@ -33,7 +34,13 @@ export default {
             }, err => {
                 console.log(err.response)
                 this.error = err.response.data.titulo
+                setTimeout(() => {
+                    this.error = '';
+                }, 2000);
             })
+        },
+        crearUsuario() {
+            this.$router.push('/signup');
         }
     }
 }

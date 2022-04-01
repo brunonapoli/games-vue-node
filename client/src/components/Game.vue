@@ -17,6 +17,12 @@
     <div>
       <h3>{{comentario}}</h3> <br>
       <h1>Usuario {{ nombre }}, mail {{ mail }}</h1>
+      <ul>
+        <li v-for="(valor, key) in datos" :key="key">
+          {{ key }}
+          {{ valor }}
+        </li>
+      </ul>
       <button @click="logout">CERRAR SESIÓN</button>
     </div>
   </div>
@@ -32,6 +38,12 @@ export default {
       nombre: '',
       mail: '',
       game: ['tijera', 'papel', 'piedra'],
+      datos: {
+        'Partidas jugadas:': 0,
+        'Partidas ganadas:': 0,
+        'Partidas perdidas:': 0,
+        'Cantidad rondas:': 0
+      },
       eleccion: ['', ''],
       punto: 0,
       comentario: ''
