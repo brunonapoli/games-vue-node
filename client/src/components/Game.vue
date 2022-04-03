@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div class="contador">
-        <h1 v-if="punto < 3"> CONTADOR: {{punto}}</h1>
-        <h1 v-else>¡FELICITACIONES, HAS GANADO!</h1>
+        <h1 v-if="punto['jugador'] < 3"> CONTADOR JUGADOR: {{punto['jugador']}}</h1>
+        <h1 v-if="punto['maquina'] < 3">CONTADOR MAQUINA: {{punto['maquina']}}</h1>
+        <!-- <h1 v-else>¡FELICITACIONES, HAS GANADO!</h1> -->
     </div>
     <div class="button-games">
         <h2>Su elección: <p> {{eleccion[0]}} </p></h2>
@@ -15,7 +16,8 @@
         <h2>Elección de la máquina: <p> {{eleccion[1]}} </p></h2>
     </div>
     <div>
-      <h3>{{comentario}}</h3> <br>
+      <h1>{{ comentario }}</h1>
+      PUNTO JUGADOR{{punto['jugador']}}
       <h1>Usuario {{ nombre }}, mail {{ mail }}</h1>
       <ul>
         <li v-for="(valor, key) in datos" :key="key">
@@ -44,9 +46,20 @@ export default {
         'Partidas perdidas:': 0,
         'Cantidad rondas:': 0
       },
-      eleccion: ['', ''],
-      punto: 0,
+      eleccion: ['', ''], //[0] pertenece al jugador y [1] pertenece a la pc
+      punto: {
+        jugador: 0,
+        maquina: 0
+      },
       comentario: ''
+    }
+  },
+  watch: {
+    'punto.jugador': function() {
+      this.comentario = 'HAS GANADO UN PUNTO'
+      setTimeout(() => {
+        this.comentario = '';
+      }, 1500);
     }
   },
   methods: {
@@ -64,33 +77,28 @@ export default {
       }, 2000);
     },
     puntaje() {
+      this.datos['Cantidad rondas:'] ++;
       setTimeout(() => {
         if (this.eleccion[0] === 'tijera' && this.eleccion[1] === 'papel') {
-          this.punto ++;
-          this.comentario = 'Has ganado un punto';
-          setTimeout(() => {
-            this.comentario = '';
-          }, 1000);
+          this.punto['jugador'] ++;
         }
         if (this.eleccion[0] === 'piedra' && this.eleccion[1] === 'tijera') {
-          this.punto ++;
-          this.comentario = 'Has ganado un punto';
-          setTimeout(() => {
-            this.comentario = '';
-          }, 1000);
+          this.punto['jugador'] ++;
         }
         if (this.eleccion[0] === 'papel' && this.eleccion[1] === 'piedra') {
-          this.punto ++;
-          this.comentario = 'Has ganado un punto';
-          setTimeout(() => {
-            this.comentario = '';
-          }, 1000);
+          this.punto['jugador'] ++;
         }
       }, 500);  
     },
     logout() {
       localStorage.clear();
       this.$router.push('/')
+    },
+    ganador() {
+      if (this.punto === 3) {
+        this.datos['Partidas jugadas:'] ++;
+        this.datos['Partidas ganadas:'] ++;
+      }
     }
   },
   mounted() {
