@@ -15,11 +15,12 @@ router.get('/usuario', (req, res) => {
         //Si el token está verificado
         User.findOne({ _id: decoded.idUsuario }, (error, user) => {
             if (error) return console.log(error)
+            console.log(user)
             return res.status(202).json({
                 titulo: 'Datos usuario almacenados',
                 user: {
                     id: user._id,
-                    nombre: user.nombre,
+                    usuario: user.usuario,
                     mail: user.mail
                 }
             })

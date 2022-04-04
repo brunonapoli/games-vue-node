@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="contador">
-        <h1 v-if="punto['jugador'] < 3"> CONTADOR JUGADOR: {{punto['jugador']}}</h1>
-        <h1 v-if="punto['maquina'] < 3">CONTADOR MAQUINA: {{punto['maquina']}}</h1>
-        <!-- <h1 v-else>¡FELICITACIONES, HAS GANADO!</h1> -->
+        <h1 v-if="punto['jugador'] < 3 && punto['maquina'] < 3"> CONTADOR JUGADOR: {{punto['jugador']}}</h1>
+        <h1 v-if="punto['maquina'] < 3 && punto['jugador'] < 3">CONTADOR MAQUINA: {{punto['maquina']}}</h1>
+        <h1 v-else>¡FELICITACIONES, HAS GANADO!</h1>
     </div>
     <div class="button-games">
         <h2>Su elección: <p> {{eleccion[0]}} </p></h2>
@@ -17,7 +17,6 @@
     </div>
     <div>
       <h1>{{ comentario }}</h1>
-      PUNTO JUGADOR{{punto['jugador']}}
       <h1>Usuario {{ nombre }}, mail {{ mail }}</h1>
       <ul>
         <li v-for="(valor, key) in datos" :key="key">
@@ -104,7 +103,7 @@ export default {
   mounted() {
     axios.get('http://localhost:3030/usuario', { headers: { token: localStorage.getItem('token') } })
     .then(res => {
-      this.nombre = res.data.user.nombre
+      this.nombre = res.data.user.usuario
       this.mail = res.data.user.mail
     })
     .catch(e => {
