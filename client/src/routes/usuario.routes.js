@@ -21,7 +21,13 @@ router.get('/usuario', (req, res) => {
                 user: {
                     id: user._id,
                     usuario: user.usuario,
-                    mail: user.mail
+                    mail: user.mail,
+                    datosJuego: {
+                        jugadas: user.datosJuego.jugadas,
+                        ganadas: user.datosJuego.ganadas,
+                        perdidas: user.datosJuego.perdidas,
+                        rondas: user.datosJuego.rondas
+                    }
                 }
             })
         })

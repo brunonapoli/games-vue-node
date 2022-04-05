@@ -103,6 +103,7 @@ export default {
     reiniciar() {
       this.punto['jugador'] = 0
       this.punto['maquina'] = 0
+
     },
     logout() {
       localStorage.clear();
@@ -114,6 +115,10 @@ export default {
     .then(res => {
       this.nombre = res.data.user.usuario
       this.mail = res.data.user.mail
+      this.datos['Partidas jugadas:'] = res.data.user.datosJuego.jugadas
+      this.datos['Partidas ganadas:'] = res.data.user.datosJuego.ganadas
+      this.datos['Partidas perdidas:'] = res.data.user.datosJuego.perdidas
+      this.datos['Cantidad rondas:'] = res.data.user.datosJuego.rondas
     })
     .catch(e => {
       console.log(e);

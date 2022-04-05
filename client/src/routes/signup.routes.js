@@ -15,7 +15,13 @@ router.post('/signup', (req, res) => {
     const nuevoUsuario = new User({
         usuario: req.body.usuario,
         mail: req.body.mail,
-        contraseña: req.body.contraseña
+        contraseña: req.body.contraseña,
+        datosJuego: {
+            jugadas: 0,
+            ganadas: 0,
+            perdidas: 0,
+            rondas: 0
+        }
     })
     nuevoUsuario.save(error => {
         if (error) {
