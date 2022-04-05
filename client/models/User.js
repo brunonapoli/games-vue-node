@@ -4,7 +4,13 @@ const { Schema } = moongose;
 const userSchema = new Schema({
     usuario: String,
     mail: { unique: true, type: String},
-    contraseña: String
+    contraseña: String,
+    datosJuego: {
+        jugadas: Number,
+        ganadas: Number,
+        perdidas: Number,
+        rondas: Number
+    }
 });
 
 const User = moongose.model('User', userSchema);

@@ -1,9 +1,14 @@
 <template>
   <div id="app">
     <div class="contador">
-        <h1 v-if="punto['jugador'] < 3 && punto['maquina'] < 3"> CONTADOR JUGADOR: {{punto['jugador']}}</h1>
-        <h1 v-if="punto['maquina'] < 3 && punto['jugador'] < 3">CONTADOR MAQUINA: {{punto['maquina']}}</h1>
+        <h1 v-if="punto['jugador'] < 3 && punto['maquina'] < 3"> 
+          CONTADOR JUGADOR: {{punto['jugador']}} 
+          - 
+          CONTADOR MAQUINA: {{punto['maquina']}}</h1>
         <h1 v-else>¡FELICITACIONES, HAS GANADO!</h1>
+        <button  @click="reiniciar" v-if="punto['jugador'] == 3 || punto['maquina'] == 3">
+          VOLVER A JUGAR
+        </button>
     </div>
     <div class="button-games">
         <h2>Su elección: <p> {{eleccion[0]}} </p></h2>
@@ -89,16 +94,20 @@ export default {
         }
       }, 500);  
     },
-    logout() {
-      localStorage.clear();
-      this.$router.push('/')
-    },
     ganador() {
       if (this.punto === 3) {
         this.datos['Partidas jugadas:'] ++;
         this.datos['Partidas ganadas:'] ++;
       }
-    }
+    },
+    reiniciar() {
+      this.punto['jugador'] = 0
+      this.punto['maquina'] = 0
+    },
+    logout() {
+      localStorage.clear();
+      this.$router.push('/')
+    },
   },
   mounted() {
     axios.get('http://localhost:3030/usuario', { headers: { token: localStorage.getItem('token') } })
