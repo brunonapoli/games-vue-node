@@ -45,10 +45,10 @@ export default {
       mail: '',
       game: ['tijera', 'papel', 'piedra'],
       datos: {
-        'Partidas jugadas:': 0,
-        'Partidas ganadas:': 0,
-        'Partidas perdidas:': 0,
-        'Cantidad rondas:': 0
+        'Partidas jugadas': 0,
+        'Partidas ganadas': 0,
+        'Partidas perdidas': 0,
+        'Cantidad rondas': 0
       },
       eleccion: ['', ''], //[0] pertenece al jugador y [1] pertenece a la pc
       punto: {
@@ -81,7 +81,7 @@ export default {
       }, 2000);
     },
     puntaje() {
-      this.datos['Cantidad rondas:'] ++;
+      this.datos['Cantidad rondas'] ++;
       setTimeout(() => {
         if (this.eleccion[0] === 'tijera' && this.eleccion[1] === 'papel') {
           this.punto['jugador'] ++;
@@ -96,14 +96,22 @@ export default {
     },
     ganador() {
       if (this.punto === 3) {
-        this.datos['Partidas jugadas:'] ++;
-        this.datos['Partidas ganadas:'] ++;
+        this.datos['Partidas jugadas'] ++;
+        this.datos['Partidas ganadas'] ++;
       }
     },
     reiniciar() {
       this.punto['jugador'] = 0
       this.punto['maquina'] = 0
-
+      let datosActualizar = {
+        datosJuego: {
+          jugadas: this.datos['Partidas jugadas'],
+          ganadas: this.datos['Partidas ganadas'],
+          perdidas: this.datos['Partidas perdidas'],
+          rondas: this.datos['Cantidad rondas']
+        }
+      }
+      console.log(datosActualizar)
     },
     logout() {
       localStorage.clear();
@@ -115,10 +123,10 @@ export default {
     .then(res => {
       this.nombre = res.data.user.usuario
       this.mail = res.data.user.mail
-      this.datos['Partidas jugadas:'] = res.data.user.datosJuego.jugadas
-      this.datos['Partidas ganadas:'] = res.data.user.datosJuego.ganadas
-      this.datos['Partidas perdidas:'] = res.data.user.datosJuego.perdidas
-      this.datos['Cantidad rondas:'] = res.data.user.datosJuego.rondas
+      this.datos['Partidas jugadas'] = res.data.user.datosJuego.jugadas
+      this.datos['Partidas ganadas'] = res.data.user.datosJuego.ganadas
+      this.datos['Partidas perdidas'] = res.data.user.datosJuego.perdidas
+      this.datos['Cantidad rondas'] = res.data.user.datosJuego.rondas
     })
     .catch(e => {
       console.log(e);
