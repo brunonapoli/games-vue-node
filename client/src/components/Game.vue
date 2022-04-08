@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="contador">
+      {{ id }}
         <h1 v-if="punto['jugador'] < 3 && punto['maquina'] < 3"> 
           CONTADOR JUGADOR: {{punto['jugador']}} 
           - 
@@ -41,6 +42,7 @@ export default {
   name: 'Game',
   data() {
     return {
+      id: "",
       nombre: '',
       mail: '',
       game: ['tijera', 'papel', 'piedra'],
@@ -52,7 +54,7 @@ export default {
       },
       eleccion: ['', ''], //[0] pertenece al jugador y [1] pertenece a la pc
       punto: {
-        jugador: 0,
+        jugador: 2,
         maquina: 0
       },
       comentario: ''
@@ -104,14 +106,17 @@ export default {
       this.punto['jugador'] = 0
       this.punto['maquina'] = 0
       let datosActualizar = {
-        datosJuego: {
-          jugadas: this.datos['Partidas jugadas'],
-          ganadas: this.datos['Partidas ganadas'],
-          perdidas: this.datos['Partidas perdidas'],
-          rondas: this.datos['Cantidad rondas']
-        }
+        id: this.id,
+        // datosJuego: {
+        //   jugadas: this.datos['Partidas jugadas'],
+        //   ganadas: this.datos['Partidas ganadas'],
+        //   perdidas: this.datos['Partidas perdidas'],
+        //   rondas: this.datos['Cantidad rondas']
+        usuario: this.nombre
+        // }
       }
       console.log(datosActualizar)
+      axios.put('http://localhost:3030/update', datosActualizar)
     },
     logout() {
       localStorage.clear();
@@ -121,6 +126,7 @@ export default {
   mounted() {
     axios.get('http://localhost:3030/usuario', { headers: { token: localStorage.getItem('token') } })
     .then(res => {
+      this.id = res.data.user.id
       this.nombre = res.data.user.usuario
       this.mail = res.data.user.mail
       this.datos['Partidas jugadas'] = res.data.user.datosJuego.jugadas

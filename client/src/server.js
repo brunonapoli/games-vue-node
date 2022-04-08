@@ -2,6 +2,7 @@ import express, { urlencoded, json } from "express";
 import SignupRoute from './routes/signup.routes.js';
 import Login from './routes/login.routes.js';
 import Usuario from './routes/usuario.routes.js';
+import Update from './routes/update.routes.js';
 import cors from "cors";  //Instalo cors para que me permita enviar datos a mi servidor sin seguridad
 import mongoose from "mongoose";
 
@@ -20,5 +21,6 @@ app.use(cors());
 app.use(SignupRoute);
 app.use(Login);
 app.use(Usuario);
+app.use(Update);
 
 export default app;
