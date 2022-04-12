@@ -1,12 +1,13 @@
 <template>
   <div id="app">
+    <h1>Usuario {{ nombre }}, mail {{ mail }}</h1>
     <div class="contador">
-      {{ id }}
         <h1 v-if="punto['jugador'] < 3 && punto['maquina'] < 3"> 
           CONTADOR JUGADOR: {{punto['jugador']}} 
           - 
           CONTADOR MAQUINA: {{punto['maquina']}}</h1>
-        <h1 v-else>¡FELICITACIONES, HAS GANADO!</h1>
+        <h1 v-else-if="punto['jugador'] == 3">¡FELICITACIONES, HAS GANADO!</h1>
+        <h1 v-else>HAS PERDIDO LA PARTIDA</h1>
         <button  @click="reiniciar" v-if="punto['jugador'] == 3 || punto['maquina'] == 3">
           VOLVER A JUGAR
         </button>
@@ -23,8 +24,8 @@
     </div>
     <div>
       <h1>{{ comentario }}</h1>
-      <h1>Usuario {{ nombre }}, mail {{ mail }}</h1>
-      <ul>
+      <button @click="verEstadisticas">VER ESTADÍSTICAS</button> <br>
+      <ul v-if = "habilitar">
         <li v-for="(valor, key) in datos" :key="key">
           {{ key }}
           {{ valor }}
@@ -55,9 +56,10 @@ export default {
       eleccion: ['', ''], //[0] pertenece al jugador y [1] pertenece a la pc
       punto: {
         jugador: 2,
-        maquina: 0
+        maquina: 2
       },
-      comentario: ''
+      comentario: '',
+      habilitar: false
     }
   },
   watch: {
@@ -66,6 +68,20 @@ export default {
       setTimeout(() => {
         this.comentario = '';
       }, 1500);
+      if (this.punto['jugador'] === 3) {
+        this.datos['Partidas jugadas'] ++;
+        this.datos['Partidas ganadas'] ++;
+      }
+    },
+    'punto.maquina': function() {
+      this.comentario = 'LA MÁQUINA HA GANADO UN PUNTO'
+      setTimeout(() => {
+        this.comentario = '';
+      }, 1500);
+      if (this.punto['maquina'] === 3) {
+        this.datos['Partidas jugadas'] ++;
+        this.datos['Partidas perdidas'] ++;
+      }
     }
   },
   methods: {
@@ -88,44 +104,51 @@ export default {
         if (this.eleccion[0] === 'tijera' && this.eleccion[1] === 'papel') {
           this.punto['jugador'] ++;
         }
-        if (this.eleccion[0] === 'piedra' && this.eleccion[1] === 'tijera') {
+        else if (this.eleccion[0] === 'piedra' && this.eleccion[1] === 'tijera') {
           this.punto['jugador'] ++;
         }
-        if (this.eleccion[0] === 'papel' && this.eleccion[1] === 'piedra') {
+        else if (this.eleccion[0] === 'papel' && this.eleccion[1] === 'piedra') {
           this.punto['jugador'] ++;
         }
-      }, 500);  
-    },
-    ganador() {
-      if (this.punto === 3) {
-        this.datos['Partidas jugadas'] ++;
-        this.datos['Partidas ganadas'] ++;
-      }
+        else if (this.eleccion[0] === this.eleccion[1]) {
+          this.comentario = 'EMPATE'
+          setTimeout(() => {
+            this.comentario = ''
+          }, 1500);
+        }
+        else {
+          this.punto['maquina'] ++;
+        }
+      }, 500);
     },
     reiniciar() {
       this.punto['jugador'] = 0
       this.punto['maquina'] = 0
       let datosActualizar = {
         id: this.id,
-        // datosJuego: {
-        //   jugadas: this.datos['Partidas jugadas'],
-        //   ganadas: this.datos['Partidas ganadas'],
-        //   perdidas: this.datos['Partidas perdidas'],
-        //   rondas: this.datos['Cantidad rondas']
-        usuario: this.nombre
-        // }
+        datosJuego: {
+          jugadas: this.datos['Partidas jugadas'],
+          ganadas: this.datos['Partidas ganadas'],
+          perdidas: this.datos['Partidas perdidas'],
+          rondas: this.datos['Cantidad rondas']
+        }
       }
       console.log(datosActualizar)
-      axios.put('http://localhost:3030/update', datosActualizar)
+      axios.put('http://localhost:3030/update', datosActualizar);
+      this.$router.go();
     },
     logout() {
       localStorage.clear();
       this.$router.push('/')
     },
+    verEstadisticas() {
+      this.habilitar = !this.habilitar
+    }
   },
   mounted() {
     axios.get('http://localhost:3030/usuario', { headers: { token: localStorage.getItem('token') } })
     .then(res => {
+      console.log(res.data.user)
       this.id = res.data.user.id
       this.nombre = res.data.user.usuario
       this.mail = res.data.user.mail
