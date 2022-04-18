@@ -12,19 +12,19 @@
                 <div class="mx-auto">
                     <b-button-toolbar>
                         <b-button-group class="mx-4">
-                            <b-button variant="success" size="sm" @click="ingresar">INGRESAR</b-button>
+                            <b-button variant="success" @click="ingresar">INGRESAR</b-button>
                         </b-button-group>
                         <b-button-group class="mx-4">
-                            <b-button variant="primary" size="sm" @click="crearUsuario">CREAR USUARIO</b-button>
+                            <b-button variant="primary" @click="crearUsuario">CREAR USUARIO</b-button>
                         </b-button-group>
                     </b-button-toolbar>
                 </div>
             </section>
-            <h2>{{ error }}</h2> <br>
         </b-card>
-        <div>
-            <Footer />
-        </div>
+        <b-card v-if="error" bg-variant="danger" class="mx-auto" style="width: 500px; margin-top:5%; text-align: center;">
+            <h4>{{ error }}</h4>
+        </b-card>
+        <Footer />
     </div>
 </template>
 

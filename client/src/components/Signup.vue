@@ -1,19 +1,53 @@
 <template>
   <div>
-    USUARIO<input v-model="usuario" type="text"> <br>
+    <Navbar />
+    <b-card bg-variant="light" class="mx-auto" style="width: 500px; margin-top:5%;">
+      <b-form-group label="Ingrese su nombre de usuario:" label-for="input-usuario"> 
+        <b-form-input id="input-mail" v-model="usuario" type="text" placeholder="Ingrese su nombre de usuario"></b-form-input> 
+      </b-form-group>
+      <b-form-group label="Ingrese su mail:" label-for="input-mail"> 
+        <b-form-input id="input-mail" v-model="mail" type="text" placeholder="Ingrese su email"></b-form-input> 
+      </b-form-group>
+      <b-form-group label="Ingrese su contraseña:" label-for="input-contraseña"> 
+        <b-form-input id="input-mail" v-model="contraseña" type="password" placeholder="Ingrese su contraseña"></b-form-input> 
+      </b-form-group>
+      <section class="row">
+        <div class="mx-auto">
+          <b-button-toolbar>
+            <b-button-group class="mx-4">
+              <b-button variant="success" @click="registrar">REGISTRARSE</b-button>
+            </b-button-group>
+            <b-button-group class="mx-4">
+              <b-button variant="primary" @click="ingresar">INICIAR SESIÓN</b-button>
+            </b-button-group>
+          </b-button-toolbar>
+        </div>
+      </section>
+    </b-card>
+    <b-card v-if="error" bg-variant="danger" class="mx-auto" style="width: 500px; margin-top:5%; text-align: center;">
+      <h4>{{ error }}</h4>
+    </b-card>
+    <!-- USUARIO<input v-model="usuario" type="text"> <br>
     MAIL<input v-model="mail" type="text"> <br>
-    CONTRASEÑA<input v-model="contraseña" type="password"> <br>
-    <button @click="registrar">Registrarse</button> <br>
-    <button @click="ingresar">Iniciar Sesión</button>
+    CONTRASEÑA<input v-model="contraseña" type="password"> <br> -->
+    <!-- <button @click="registrar">Registrarse</button> <br>
+    <button @click="ingresar">Iniciar Sesión</button> -->
     {{ error }}
+    <Footer />
   </div>
 </template>
 
 <script>
-
 import axios from 'axios';
+import Navbar from './Navbar.vue';
+import Footer from './Footer.vue';
+
 export default {
   name: 'Signup',
+  components: {
+    Navbar,
+    Footer
+  },
   data() {
     return {
       usuario: '',
@@ -39,7 +73,7 @@ export default {
           this.error = error.response.data.titulo
           setTimeout(() => {
             this.error = '';
-          }, 2000);
+          }, 1500);
         }
       )
     },

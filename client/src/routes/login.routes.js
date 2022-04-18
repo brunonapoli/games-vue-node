@@ -18,7 +18,7 @@ router.post('/login', (req, res) => {
         if (!user) {
             console.log('Usuario no encontrado.')
             return res.status(401).json({
-                titulo: 'Usuario no encontrado.',
+                titulo: 'Usuario no encontrado',
                 error: 'Datos erróneos.'
             })
         }
