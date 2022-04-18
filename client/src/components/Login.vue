@@ -1,17 +1,44 @@
 <template>
     <div>
-        EMAIL <input v-model="mail" type="text"> <br>
-        CONTRASEÑA <input v-model="contraseña" type="text"> <br>
-        <button @click="ingresar">INGRESAR</button> <br>
-        <h2>{{ error }}</h2> <br>
-        <button @click="crearUsuario">CREAR USUARIO</button>
+        <Navbar />
+        <b-card bg-variant="light" class="mx-auto" style="width: 500px; margin-top:5%;">
+            <b-form-group label="Ingrese su mail:" label-for="input-mail">
+                <b-form-input id="input-mail" v-model="mail" type="email" placeholder="Ingrese su email" required> </b-form-input>
+            </b-form-group>
+            <b-form-group label="Ingrese su contraseña:" label-for="input-contraseña">
+                <b-form-input id="input-contraseña" v-model="contraseña" placeholder="Ingrese su contraseña" type="text"> </b-form-input>
+            </b-form-group>
+            <section class="row">
+                <div class="mx-auto">
+                    <b-button-toolbar>
+                        <b-button-group class="mx-4">
+                            <b-button variant="success" size="sm" @click="ingresar">INGRESAR</b-button>
+                        </b-button-group>
+                        <b-button-group class="mx-4">
+                            <b-button variant="primary" size="sm" @click="crearUsuario">CREAR USUARIO</b-button>
+                        </b-button-group>
+                    </b-button-toolbar>
+                </div>
+            </section>
+            <h2>{{ error }}</h2> <br>
+        </b-card>
+        <div>
+            <Footer />
+        </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Navbar from './Navbar.vue';
+import Footer from './Footer.vue';
+
 export default {
     name: 'Login',
+    components: {
+        Navbar,
+        Footer
+    },
     data() {
         return {
             mail: '',
@@ -45,3 +72,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+</style>
