@@ -6,7 +6,7 @@
                 <b-form-input id="input-mail" v-model="mail" type="email" placeholder="Ingrese su email" required> </b-form-input>
             </b-form-group>
             <b-form-group label="Ingrese su contraseña:" label-for="input-contraseña">
-                <b-form-input id="input-contraseña" v-model="contraseña" placeholder="Ingrese su contraseña" type="text"> </b-form-input>
+                <b-form-input id="input-contraseña" v-model="contraseña" type="password" placeholder="Ingrese su contraseña"> </b-form-input>
             </b-form-group>
             <section class="row">
                 <div class="mx-auto">

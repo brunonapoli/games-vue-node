@@ -10,7 +10,7 @@
                             <em>USUARIO</em>
                         </template>
                         <b-dropdown-item href="/game">Perfil</b-dropdown-item>
-                        <b-dropdown-item href="#">Cerrar Sesión</b-dropdown-item>
+                        <b-dropdown-item @click="logout">Cerrar Sesión</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
@@ -20,6 +20,12 @@
 
 <script>
 export default {
-    name: 'Navbar'
+    name: 'Navbar',
+    methods: {
+        logout() {
+            localStorage.clear();
+            this.$router.push('/')
+        }
+    }
 }
 </script>

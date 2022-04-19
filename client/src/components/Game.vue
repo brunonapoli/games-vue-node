@@ -1,52 +1,73 @@
 <template>
   <div id="app">
-    <h1>Usuario {{ nombre }}, mail {{ mail }}</h1>
-    <div class="contador">
-        <h1 v-if="punto['jugador'] < 3 && punto['maquina'] < 3"> 
-          CONTADOR JUGADOR: {{punto['jugador']}} 
-          - 
-          CONTADOR MAQUINA: {{punto['maquina']}}</h1>
-        <h1 v-else-if="punto['jugador'] == 3">¡FELICITACIONES, HAS GANADO!</h1>
-        <h1 v-else>HAS PERDIDO LA PARTIDA</h1>
-        <button  @click="reiniciar" v-if="punto['jugador'] == 3 || punto['maquina'] == 3">
-          VOLVER A JUGAR
-        </button>
-    </div>
-    <div class="button-games">
-        <h2>Su elección: <p> {{eleccion[0]}} </p></h2>
-        <button @click="randomChoice(0); puntaje();">{{game[0]}}</button>
-        <button @click="randomChoice(1); puntaje();">{{game[1]}}</button>
-        <button @click="randomChoice(2); puntaje();">{{game[2]}}</button>
-    </div>
-
-    <div class="button-ia">
-        <h2>Elección de la máquina: <p> {{eleccion[1]}} </p></h2>
-    </div>
-    <div>
-      <h1>{{ comentario }}</h1>
-      <button @click="verEstadisticas">VER ESTADÍSTICAS</button> <br>
-      <ul v-if = "habilitar">
-        <li v-for="(valor, key) in datos" :key="key">
-          {{ key }}
-          {{ valor }}
-        </li>
-      </ul>
-      <button @click="logout">CERRAR SESIÓN</button>
-    </div>
+    <Navbar />
+    <b-card bg-variant="light" class="mx-auto" style="margin-top:8%; text-align:center">
+      <!-- <h1>Usuario {{ nombre }}, mail {{ mail }}</h1> -->
+      <div class="contador">
+          <h1 v-if="punto['jugador'] < 3 && punto['maquina'] < 3"> 
+            JUGADOR: {{punto['jugador']}} 
+            - 
+            MAQUINA: {{punto['maquina']}}</h1>
+          <h1 v-else-if="punto['jugador'] == 3">¡FELICITACIONES, HAS GANADO!</h1>
+          <h1 v-else>HAS PERDIDO LA PARTIDA</h1>
+          <button  @click="reiniciar" v-if="punto['jugador'] == 3 || punto['maquina'] == 3">
+            VOLVER A JUGAR
+          </button>
+      </div>
+      
+      <div class="elecciones">
+        <b-row style="border-bottom: 50px">
+          <b-col md="6">
+            <h2>Su elección:</h2>
+            <h2>{{eleccion[0]}}</h2>
+          </b-col>
+          <b-col md="6">
+            <h2>Elección de la máquina:</h2>
+            <h2>{{eleccion[1]}}</h2>
+          </b-col>
+        </b-row>
+        <div class="botones">
+          <b-button size="lg" @click="randomChoice(0); puntaje();">{{game[0]}}</b-button>
+          <b-button size="lg" style="margin-left:50px" @click="randomChoice(1); puntaje();">{{game[1]}}</b-button>
+          <b-button size="lg" style="margin-left:50px" @click="randomChoice(2); puntaje();">{{game[2]}}</b-button>
+        </div>
+      </div>
+      <div>
+        
+        <!-- <button @click="verEstadisticas">VER ESTADÍSTICAS</button> <br> -->
+        <ul v-if = "habilitar">
+          <li v-for="(valor, key) in datos" :key="key">
+            {{ key }}
+            {{ valor }}
+          </li>
+        </ul>
+        <!-- <button @click="logout">CERRAR SESIÓN</button> -->
+      </div>
+      <Footer />
+    </b-card>
+    <b-card v-if="comentario" bg-variant="light" class="mx-auto" style="margin-top:4%; text-align:center">
+      <h3>{{ comentario }}</h3>
+    </b-card>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Navbar from './Navbar.vue';
+import Footer from './Footer.vue';
 
 export default {
   name: 'Game',
+  components: {
+    Navbar,
+    Footer
+  },
   data() {
     return {
       id: "",
       nombre: '',
       mail: '',
-      game: ['tijera', 'papel', 'piedra'],
+      game: ['TIJERA', 'PAPEL', 'PIEDRA'],
       datos: {
         'Partidas jugadas': 0,
         'Partidas ganadas': 0,
@@ -55,8 +76,8 @@ export default {
       },
       eleccion: ['', ''], //[0] pertenece al jugador y [1] pertenece a la pc
       punto: {
-        jugador: 2,
-        maquina: 2
+        jugador: 0,
+        maquina: 0
       },
       comentario: '',
       habilitar: false
@@ -67,7 +88,7 @@ export default {
       this.comentario = 'HAS GANADO UN PUNTO'
       setTimeout(() => {
         this.comentario = '';
-      }, 1500);
+      }, 2000);
       if (this.punto['jugador'] === 3) {
         this.datos['Partidas jugadas'] ++;
         this.datos['Partidas ganadas'] ++;
@@ -77,7 +98,7 @@ export default {
       this.comentario = 'LA MÁQUINA HA GANADO UN PUNTO'
       setTimeout(() => {
         this.comentario = '';
-      }, 1500);
+      }, 2000);
       if (this.punto['maquina'] === 3) {
         this.datos['Partidas jugadas'] ++;
         this.datos['Partidas perdidas'] ++;
@@ -91,12 +112,11 @@ export default {
         //Vue no deja cambiar el array porque sí.
         this.$set(this.eleccion, 0, this.game[id]);
         this.$set(this.eleccion, 1, this.game[random])
-        console.log(this.eleccion)
       }, 500);
       setTimeout(() => {
         this.$set(this.eleccion, 0, "")
         this.$set(this.eleccion, 1, "")
-      }, 2000);
+      }, 2500);
     },
     puntaje() {
       this.datos['Cantidad rondas'] ++;
@@ -114,7 +134,7 @@ export default {
           this.comentario = 'EMPATE'
           setTimeout(() => {
             this.comentario = ''
-          }, 1500);
+          }, 2000);
         }
         else {
           this.punto['maquina'] ++;
@@ -137,10 +157,10 @@ export default {
       axios.put('http://localhost:3030/update', datosActualizar);
       this.$router.go();
     },
-    logout() {
-      localStorage.clear();
-      this.$router.push('/')
-    },
+    // logout() {
+    //   localStorage.clear();
+    //   this.$router.push('/')
+    // },
     verEstadisticas() {
       this.habilitar = !this.habilitar
     }
