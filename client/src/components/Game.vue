@@ -10,9 +10,9 @@
             MAQUINA: {{punto['maquina']}}</h1>
           <h1 v-else-if="punto['jugador'] == 3">¡FELICITACIONES, HAS GANADO!</h1>
           <h1 v-else>HAS PERDIDO LA PARTIDA</h1>
-          <button  @click="reiniciar" v-if="punto['jugador'] == 3 || punto['maquina'] == 3">
+          <!-- <button  @click="reiniciar" v-if="punto['jugador'] == 3 || punto['maquina'] == 3">
             VOLVER A JUGAR
-          </button>
+          </button> -->
       </div>
       
       <div class="elecciones">
@@ -48,6 +48,17 @@
     <b-card v-if="comentario" bg-variant="light" class="mx-auto" style="margin-top:4%; text-align:center">
       <h3>{{ comentario }}</h3>
     </b-card>
+
+    <div class="pantalla" v-if="punto['jugador'] == 3 || punto['maquina'] == 3">
+      <b-card class="centrado">
+        <p>HAS PERDIDO LA PARTIDA</p>
+        <p>LA MÁQUINA HA GANADO POR {{punto['maquina']}} PUNTOS</p>
+        <p>TOCA EN REINICIAR PARA VOLVER A JUGAR</p>
+        <b-button size="lg" @click="reiniciar">
+            VOLVER A JUGAR
+        </b-button>
+      </b-card>
+    </div>
   </div>
 </template>
 
@@ -188,3 +199,24 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.pantalla{
+  position: absolute;
+  background: rgb(44, 43, 43, .4);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.centrado{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  text-align: center;
+}
+</style>
