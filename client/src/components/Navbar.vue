@@ -9,19 +9,42 @@
                         <template #button-content>
                             <em>USUARIO</em>
                         </template>
-                        <b-dropdown-item href="/game">Perfil</b-dropdown-item>
+                        <b-dropdown-item @click="activar">Perfil</b-dropdown-item>
                         <b-dropdown-item @click="logout">Cerrar Sesión</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
+
+        <!-- Pantalla para el PERFIL -->
+        <div class="pantalla" v-if="activado">
+            <b-card class="centrado">
+                <p>{{testeando}}</p>
+                <p>ESTE ES TU USUARIO</p>
+                <p>TOCA EN CERRAR PARA SEGUIR CON EL JUEGO</p>
+                <b-button variant="primary" size="lg" @click="activar">
+                    CERRAR
+                </b-button>
+            </b-card>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
     name: 'Navbar',
+    props: {
+        testeando: String
+    },
+    data() {
+        return {
+            activado: false
+        }
+    },
     methods: {
+        activar() {
+            this.activado = !this.activado
+        },
         logout() {
             localStorage.clear();
             this.$router.push('/')
@@ -29,3 +52,27 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.pantalla{
+  position: absolute;
+  background: rgb(44, 43, 43, .5);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 90;
+}
+.centrado{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  text-align: center;
+  padding: 50px;
+  z-index: 100;
+}
+</style>

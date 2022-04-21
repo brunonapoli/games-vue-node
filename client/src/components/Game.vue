@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar />
+    <Navbar :testeando="HOLA" />
     <b-card bg-variant="light" class="mx-auto" style="margin-top:8%; text-align:center">
       <!-- <h1>Usuario {{ nombre }}, mail {{ mail }}</h1> -->
       <div class="contador">
@@ -27,9 +27,9 @@
           </b-col>
         </b-row>
         <div class="botones">
-          <b-button size="lg" @click="randomChoice(0); puntaje();">{{game[0]}}</b-button>
-          <b-button size="lg" style="margin-left:50px" @click="randomChoice(1); puntaje();">{{game[1]}}</b-button>
-          <b-button size="lg" style="margin-left:50px" @click="randomChoice(2); puntaje();">{{game[2]}}</b-button>
+          <b-button variant="primary" size="lg" @click="randomChoice(0); puntaje();">{{game[0]}}</b-button>
+          <b-button variant="primary" size="lg" style="margin-left:50px" @click="randomChoice(1); puntaje();">{{game[1]}}</b-button>
+          <b-button variant="primary" size="lg" style="margin-left:50px" @click="randomChoice(2); puntaje();">{{game[2]}}</b-button>
         </div>
       </div>
       <div>
@@ -43,7 +43,7 @@
         </ul>
         <!-- <button @click="logout">CERRAR SESIÓN</button> -->
       </div>
-      <Footer />
+      <!-- <Footer /> -->
     </b-card>
     <b-card v-if="comentario" bg-variant="light" class="mx-auto" style="margin-top:4%; text-align:center">
       <h3>{{ comentario }}</h3>
@@ -53,12 +53,13 @@
       <b-card class="centrado">
         <p>HAS PERDIDO LA PARTIDA</p>
         <p>LA MÁQUINA HA GANADO POR {{punto['maquina']}} PUNTOS</p>
-        <p>TOCA EN REINICIAR PARA VOLVER A JUGAR</p>
-        <b-button size="lg" @click="reiniciar">
+        <p>TOCA EN EL BOTÓN PARA VOLVER A JUGAR</p>
+        <b-button variant="primary" size="lg" @click="reiniciar">
             VOLVER A JUGAR
         </b-button>
       </b-card>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -75,6 +76,7 @@ export default {
   },
   data() {
     return {
+      testeando: String,
       id: "",
       nombre: '',
       mail: '',
@@ -203,7 +205,7 @@ export default {
 <style scoped>
 .pantalla{
   position: absolute;
-  background: rgb(44, 43, 43, .4);
+  background: rgb(44, 43, 43, .5);
   width: 100%;
   height: 100%;
   top: 0;
@@ -218,5 +220,6 @@ export default {
   background: rgb(255, 255, 255);
   border-radius: 10px;
   text-align: center;
+  padding: 50px;
 }
 </style>
