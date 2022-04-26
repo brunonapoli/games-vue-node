@@ -8,7 +8,6 @@
       :rondas="datos['Cantidad rondas']"
     />
     <b-card bg-variant="light" class="mx-auto" style="margin-top:8%; text-align:center">
-      <!-- <h1>Usuario {{ nombre }}, mail {{ mail }}</h1> -->
       <div class="contador">
           <h1 v-if="punto['jugador'] < 3 && punto['maquina'] < 3"> 
             JUGADOR: {{punto['jugador']}} 
@@ -16,9 +15,6 @@
             MAQUINA: {{punto['maquina']}}</h1>
           <h1 v-else-if="punto['jugador'] == 3">¡FELICITACIONES, HAS GANADO!</h1>
           <h1 v-else>HAS PERDIDO LA PARTIDA</h1>
-          <!-- <button  @click="reiniciar" v-if="punto['jugador'] == 3 || punto['maquina'] == 3">
-            VOLVER A JUGAR
-          </button> -->
       </div>
       
       <div class="elecciones">
@@ -39,17 +35,13 @@
         </div>
       </div>
       <div>
-        
-        <!-- <button @click="verEstadisticas">VER ESTADÍSTICAS</button> <br> -->
         <ul v-if = "habilitar">
           <li v-for="(valor, key) in datos" :key="key">
             {{ key }}
             {{ valor }}
           </li>
         </ul>
-        <!-- <button @click="logout">CERRAR SESIÓN</button> -->
       </div>
-      <!-- <Footer /> -->
     </b-card>
     <b-card v-if="comentario" bg-variant="light" class="mx-auto" style="margin-top:4%; text-align:center">
       <h3>{{ comentario }}</h3>
@@ -176,10 +168,6 @@ export default {
       axios.put('http://localhost:3030/update', datosActualizar);
       this.$router.go();
     },
-    // logout() {
-    //   localStorage.clear();
-    //   this.$router.push('/')
-    // },
     verEstadisticas() {
       this.habilitar = !this.habilitar
     }

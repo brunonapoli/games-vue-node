@@ -27,11 +27,6 @@
     <b-card v-if="error" bg-variant="danger" class="mx-auto" style="width: 500px; margin-top:5%; text-align: center;">
       <h4>{{ error }}</h4>
     </b-card>
-    <!-- USUARIO<input v-model="usuario" type="text"> <br>
-    MAIL<input v-model="mail" type="text"> <br>
-    CONTRASEÑA<input v-model="contraseña" type="password"> <br> -->
-    <!-- <button @click="registrar">Registrarse</button> <br>
-    <button @click="ingresar">Iniciar Sesión</button> -->
     {{ error }}
     <Footer />
   </div>
