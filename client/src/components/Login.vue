@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Navbar />
+        <Navbar nombre="Aún no has iniciado sesión."/>
         <b-card bg-variant="light" class="mx-auto" style="width: 500px; margin-top:5%;">
             <b-form-group label="Ingrese su mail:" label-for="input-mail">
                 <b-form-input id="input-mail" v-model="mail" type="email" placeholder="Ingrese su email" required> </b-form-input>

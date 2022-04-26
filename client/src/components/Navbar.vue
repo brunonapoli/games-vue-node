@@ -19,9 +19,13 @@
         <!-- Pantalla para el PERFIL -->
         <div class="pantalla" v-if="activado">
             <b-card class="centrado">
-                <p>{{testeando}}</p>
-                <p>ESTE ES TU USUARIO</p>
-                <p>TOCA EN CERRAR PARA SEGUIR CON EL JUEGO</p>
+                <h2>{{ nombre }}</h2>
+                <div v-if="nombre != 'Aún no has iniciado sesión.'">
+                    Cantidad de partidas jugadas: {{jugadas}} <br>
+                    Cantidad de partidas ganadas: {{ganadas}} <br>
+                    Cantidad de partidas perdidas: {{perdidas}} <br>
+                    Cantidad de rondas jugadas: {{rondas}} <br>
+                </div>
                 <b-button variant="primary" size="lg" @click="activar">
                     CERRAR
                 </b-button>
@@ -33,9 +37,7 @@
 <script>
 export default {
     name: 'Navbar',
-    props: {
-        testeando: String
-    },
+    props: ['nombre', 'jugadas', 'ganadas', 'perdidas', 'rondas'],
     data() {
         return {
             activado: false

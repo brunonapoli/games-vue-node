@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <Navbar :testeando="HOLA" />
+    <Navbar 
+      :nombre="nombre"
+      :jugadas="datos['Partidas jugadas']"
+      :ganadas="datos['Partidas ganadas']"
+      :perdidas="datos['Partidas perdidas']"
+      :rondas="datos['Cantidad rondas']"
+    />
     <b-card bg-variant="light" class="mx-auto" style="margin-top:8%; text-align:center">
       <!-- <h1>Usuario {{ nombre }}, mail {{ mail }}</h1> -->
       <div class="contador">
@@ -76,7 +82,6 @@ export default {
   },
   data() {
     return {
-      testeando: String,
       id: "",
       nombre: '',
       mail: '',
