@@ -21,10 +21,11 @@
             <b-card class="centrado">
                 <h2>{{ nombre }}</h2>
                 <div v-if="nombre != 'Aún no has iniciado sesión.'">
-                    Cantidad de partidas jugadas: {{jugadas}} <br>
-                    Cantidad de partidas ganadas: {{ganadas}} <br>
-                    Cantidad de partidas perdidas: {{perdidas}} <br>
-                    Cantidad de rondas jugadas: {{rondas}} <br>
+                    <h4>Cantidad de partidas jugadas: {{jugadas}}</h4> <br>
+                    <h4>Cantidad de partidas ganadas: {{ganadas}}</h4> <br>
+                    <h4>Cantidad de partidas perdidas: {{perdidas}}</h4> <br>
+                    <h4>Cantidad de rondas jugadas: {{rondas}}</h4> <br>
+                    
                 </div>
                 <b-button variant="primary" size="lg" @click="activar">
                     CERRAR

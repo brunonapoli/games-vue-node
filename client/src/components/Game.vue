@@ -57,9 +57,10 @@
 
     <div class="pantalla" v-if="punto['jugador'] == 3 || punto['maquina'] == 3">
       <b-card class="centrado">
-        <p>HAS PERDIDO LA PARTIDA</p>
-        <p>LA MÁQUINA HA GANADO POR {{punto['maquina']}} PUNTOS</p>
-        <p>TOCA EN EL BOTÓN PARA VOLVER A JUGAR</p>
+        <h2>LA PARTIDA HA TERMINADO</h2> <br>
+        <h4 v-if="punto['maquina'] == 3">HA GANADO: LA MÁQUINA</h4>
+        <h4 v-if="punto['jugador'] == 3">HA GANADO: {{nombre}}</h4>
+        <h4>TOCA EN EL BOTÓN PARA VOLVER A JUGAR</h4> <br>
         <b-button variant="primary" size="lg" @click="reiniciar">
             VOLVER A JUGAR
         </b-button>
@@ -139,13 +140,13 @@ export default {
     puntaje() {
       this.datos['Cantidad rondas'] ++;
       setTimeout(() => {
-        if (this.eleccion[0] === 'tijera' && this.eleccion[1] === 'papel') {
+        if (this.eleccion[0] === 'TIJERA' && this.eleccion[1] === 'PAPEL') {
           this.punto['jugador'] ++;
         }
-        else if (this.eleccion[0] === 'piedra' && this.eleccion[1] === 'tijera') {
+        else if (this.eleccion[0] === 'PIEDRA' && this.eleccion[1] === 'TIJERA') {
           this.punto['jugador'] ++;
         }
-        else if (this.eleccion[0] === 'papel' && this.eleccion[1] === 'piedra') {
+        else if (this.eleccion[0] === 'PAPEL' && this.eleccion[1] === 'PIEDRA') {
           this.punto['jugador'] ++;
         }
         else if (this.eleccion[0] === this.eleccion[1]) {
