@@ -1,18 +1,29 @@
 <template>
   <div>
     <Navbar nombre="Aún no has iniciado sesión."/>
-    <b-card bg-variant="light" class="mx-auto" style="width: 500px; margin-top:5%;">
-      <b-form-group label="Ingrese su nombre de usuario:" label-for="input-usuario"> 
+    <b-card bg-variant="light" class="mx-auto" style="width: 500px; margin-top:2%">
+      <h2 style="text-align: center; margin-bottom: 5%;">Cree su usuario</h2>
+
+      <b-form-group label="Ingrese su nombre de usuario" label-for="input-usuario"> 
         <b-form-input id="input-mail" v-model="usuario" type="text" placeholder="Ingrese su nombre de usuario"></b-form-input> 
       </b-form-group>
-      <b-form-group label="Ingrese su mail:" label-for="input-mail"> 
-        <b-form-input id="input-mail" v-model="mail" type="text" placeholder="Ingrese su email"></b-form-input> 
+
+      <b-form-group label="Ingrese su mail" label-for="input-mail"> 
+        <b-form-input id="input-mail" v-model="mail" type="text" placeholder="Ingrese su email"></b-form-input>
+        <p v-if="error" style="text-align: center; margin-top: 1%">Este usuario ya existe</p>
       </b-form-group>
-      <b-form-group label="Ingrese su contraseña:" label-for="input-contraseña"> 
+
+      <b-form-group label="Ingrese su contraseña" label-for="input-contraseña"> 
         <b-form-input id="input-mail" v-model="contraseña" type="password" placeholder="Ingrese su contraseña"></b-form-input> 
       </b-form-group>
+
+      <b-form-group label="Ingrese nuevamente su contraseña" label-for="input-repetirContraseña"> 
+        <b-form-input id="input-mail" v-model="repetirContraseña" type="password" placeholder="Ingrese nuevamente su contraseña"></b-form-input> 
+        <p v-if="contraseña != repetirContraseña" style="text-align: center; margin-top: 10px"> {{errorContraseña}}</p>
+      </b-form-group>
+
       <section class="row">
-        <div class="mx-auto">
+        <div class="mx-auto" style="margin-top:1%">
           <b-button-toolbar>
             <b-button-group class="mx-4">
               <b-button variant="success" @click="registrar">REGISTRARSE</b-button>
@@ -24,10 +35,10 @@
         </div>
       </section>
     </b-card>
-    <b-card v-if="error" bg-variant="danger" class="mx-auto" style="width: 500px; margin-top:5%; text-align: center;">
+
+    <!-- <b-card v-if="error" bg-variant="danger" class="mx-auto" style="width: 500px; margin-top:5%; text-align: center;">
       <h4>{{ error }}</h4>
-    </b-card>
-    {{ error }}
+    </b-card> -->
     <Footer />
   </div>
 </template>
@@ -47,30 +58,39 @@ export default {
     return {
       usuario: '',
       mail: '',
-      contraseña: '',
-      error:''
+      repetirContraseña: '',
+      error:'',
+      errorContraseña: ''
     }
   },
   methods: {
     registrar() {
-      let nuevoUsuario = {
-        usuario: this.usuario, 
-        mail: this.mail, 
-        contraseña: this.contraseña
-      };
-      console.log(nuevoUsuario)
-      axios.post('http://localhost:3030/signup', nuevoUsuario)
-        .then(res => {
-          console.log(res)
-          this.$router.push('/')
-        }, error => {
-          console.log(error.response)
-          this.error = error.response.data.titulo
-          setTimeout(() => {
-            this.error = '';
-          }, 1500);
-        }
-      )
+      if (this.contraseña === this.repetirContraseña) {
+        let nuevoUsuario = {
+          usuario: this.usuario, 
+          mail: this.mail, 
+          contraseña: this.contraseña
+        };
+        console.log(nuevoUsuario)
+        axios.post('http://localhost:3030/signup', nuevoUsuario)
+          .then(res => {
+            console.log(res)
+            this.$router.push('/')
+          }, error => {
+            console.log(error.response)
+            this.error = error.response.data.titulo
+            setTimeout(() => {
+              this.error = '';
+            }, 1500);
+          }
+        )
+      } 
+      if (this.contraseña != this.repetirContraseña) {
+        this.errorContraseña = "Las contraseñas no coinciden"
+        setTimeout(() => {
+          this.errorContraseña = '';
+        }, 1500);
+      }
     },
     ingresar() {
       this.$router.push('/');

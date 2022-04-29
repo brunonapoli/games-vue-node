@@ -2,11 +2,12 @@
     <div>
         <Navbar nombre="Aún no has iniciado sesión."/>
         <b-card bg-variant="light" class="mx-auto" style="width: 500px; margin-top:5%;">
+            <h3 style="text-align: center; margin-bottom: 5%">Inicie sesión con su usuario</h3>
             <b-form-group label="Ingrese su mail:" label-for="input-mail">
                 <b-form-input id="input-mail" v-model="mail" type="email" placeholder="Ingrese su email" required> </b-form-input>
             </b-form-group>
-            <b-form-group label="Ingrese su contraseña:" label-for="input-contraseña">
-                <b-form-input id="input-contraseña" v-model="contraseña" type="password" placeholder="Ingrese su contraseña"> </b-form-input>
+            <b-form-group style="margin-bottom: 5%" label="Ingrese su contraseña:" label-for="input-contraseña">
+                <b-form-input id="input-contraseña" v-model="contraseña" @keyup.enter="ingresar" type="password" placeholder="Ingrese su contraseña"> </b-form-input>
             </b-form-group>
             <section class="row">
                 <div class="mx-auto">
