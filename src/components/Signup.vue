@@ -125,12 +125,6 @@ export default {
           }
         )
       }
-      // if (this.contraseña != this.repetirContraseña) {
-      //   this.errorContraseña = "Las contraseñas no coinciden"
-      //   setTimeout(() => {
-      //     this.errorContraseña = '';
-      //   }, 1500);
-      // }
     },
     ingresar() {
       this.$router.push('/');
