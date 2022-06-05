@@ -5,7 +5,7 @@
 ### Descripción aplicación
 > Aplicación en la que puedes crearte un usuario y jugar al famoso piedra, papel o tijera mientras se guardan tus estadísticas.
 ![Screenshot](src/assets/login.png)
-
+>
 ![Screenshot](src/assets/juego.png)
 
 ### Lenguajes
