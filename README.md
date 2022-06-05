@@ -12,7 +12,7 @@
 >Vue.js - Node.js - MongoDB - Bootstrap.
 
 ### Iniciar aplicación
->La aplicación está conectada a la base de datos del servisio de MongoDB Atlas,
+>La aplicación está conectada a la base de datos del servicio de MongoDB Atlas,
 >por lo que debe crear un archivo .env y seguir el modelo del archivo .env.example para conectarlo a su propia base de datos 
 >en Atlas.
 
