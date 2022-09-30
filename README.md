@@ -5,7 +5,7 @@
 
 ## App Info
 
-> Aplicación en la que puedes crearte un usuario y jugar al famoso piedra, papel o tijera mientras se guardan tus estadísticas.
+Aplicación en la que puedes crearte un usuario y jugar al famoso piedra, papel o tijera mientras se guardan tus estadísticas.
 
 
 ### Lenguajes
